@@ -1,0 +1,8 @@
+2026-03-22 22:51:52,203 [INFO] Starting pipeline for repository: https://github.com/google/gson.git
+2026-03-22 22:51:52,203 [INFO] Cloning repository: https://github.com/google/gson.git
+2026-03-22 22:51:52,204 [DEBUG] Running command: git clone --depth 1 https://github.com/google/gson.git workspace\repos\gson
+2026-03-22 22:51:53,776 [INFO] Running CK for repository: gson
+2026-03-22 22:51:53,776 [DEBUG] Running command: java -jar ck\ck-0.7.1-SNAPSHOT-jar-with-dependencies.jar workspace\repos\gson false 0 false workspace\ck_raw\gson
+2026-03-22 22:52:00,302 [INFO] CK finished successfully for gson
+2026-03-22 22:52:00,323 [INFO] Pipeline completed successfully for gson
+2026-03-22 22:52:00,323 [INFO] Summary CSV generated at: workspace\summaries\gson_quality_summary.csv
