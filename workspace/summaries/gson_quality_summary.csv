@@ -1,0 +1,4 @@
+repo_name,repo_url,metric,count,mean,median,stddev,min,max
+gson,https://github.com/google/gson.git,CBO,1082,3.0333,2.0,4.4525,0.0,44.0
+gson,https://github.com/google/gson.git,DIT,1082,1.2856,1.0,1.025,1.0,24.0
+gson,https://github.com/google/gson.git,LCOM,1082,20.7773,0.0,382.1895,0.0,12403.0
