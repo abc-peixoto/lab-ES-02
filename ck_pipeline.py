@@ -32,7 +32,7 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from statistics import mean, median, pstdev
+from statistics import mean, median, pstdev, quantiles
 from typing import Dict, Iterable, List, Optional
 
 
@@ -289,7 +289,12 @@ def summarize_metric(values: List[float]) -> Dict[str, float]:
             "stddev": 0.0,
             "min": 0.0,
             "max": 0.0,
+            "p25": 0.0,
+            "p75": 0.0,
         }
+
+    sorted_values = sorted(values)
+    quartiles = quantiles(sorted_values, n=4) if len(sorted_values) >= 4 else [0.0, 0.0, 0.0, 0.0]
 
     return {
         "count": len(values),
@@ -298,6 +303,8 @@ def summarize_metric(values: List[float]) -> Dict[str, float]:
         "stddev": pstdev(values) if len(values) > 1 else 0.0,
         "min": min(values),
         "max": max(values),
+        "p25": quartiles[0],
+        "p75": quartiles[2],
     }
 
 
@@ -323,13 +330,15 @@ def write_summary_csv(
                 "stddev": round(stats["stddev"], 4),
                 "min": round(stats["min"], 4),
                 "max": round(stats["max"], 4),
+                "p25": round(stats["p25"], 4),
+                "p75": round(stats["p75"], 4),
             }
         )
 
     with summary_csv_path.open("w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(
             f,
-            fieldnames=["repo_name", "repo_url", "metric", "count", "mean", "median", "stddev", "min", "max"],
+            fieldnames=["repo_name", "repo_url", "metric", "count", "mean", "median", "stddev", "min", "max", "p25", "p75"],
         )
         writer.writeheader()
         writer.writerows(rows)
